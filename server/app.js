@@ -23,6 +23,16 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// app.use(function (req, res, next) {
+//   if (req.cookies.userId) {
+//     next();
+//   } else {
+//     console.log('url:' + req.originalUrl);
+//     if (req.originalUrl=='/users/login')
+    
+//   }
+// })
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);

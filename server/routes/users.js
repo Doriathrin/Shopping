@@ -46,4 +46,26 @@ router.post('/logout', function (req, res, next) {
     result:''
   })
 }) 
+
+router.get('/cartList', function (req, res, next) {
+  var userId = req.cookies.userId;
+  User.findOne({ userId: userId }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message,
+        result: ''
+      })
+    } else {
+      if (doc) {
+        doc.cartList;
+        res.json({
+          status: '0',
+          msg: '',
+          result:doc.cartList
+        })
+      }
+    }
+  })
+})
 module.exports = router;

@@ -5,8 +5,8 @@
         <ul class='lwq-to'>
           <li><img src="/static/img/logo1.png" alt=""></li>
           <li class='lwq-to-yo'>
-            <el-button type="text" @click="dialogFormVisible = true" v-if='!nickName'>Login</el-button>
-            <span v-if='nickName' @click="logOut">登出</span>
+            <el-button type="text" @click="dialogFormVisible = true" >Login</el-button>
+            <span  @click="logOut">登出</span>
             <el-dialog title="Login in" :visible.sync="dialogFormVisible">
               <el-form :model="form">
                 
@@ -14,12 +14,12 @@
                   <el-input v-model="form.userName" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" :label-width="formLabelWidth">
-                  <el-input v-model="form.userPwd" autocomplete="off"></el-input>
+                  <el-input v-model="form.userPwd" autocomplete="off" @keyup.enter="login"></el-input>
                 </el-form-item>
               </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="login">确 定</el-button>
+                <el-button type="primary" @click="login" >确 定</el-button>
               </div>
             </el-dialog>
           </li>

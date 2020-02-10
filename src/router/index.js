@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Head from '@/components/Head-t'
 import Index from '@/components/Index'
+import Cart from '@/components/Cart.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +20,11 @@ export default new Router({
       path: '/index',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: Cart
     }
   ]
 })
