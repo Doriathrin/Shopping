@@ -15,7 +15,16 @@ var userSchame = new Schema({
       "productNum":String
     }
   ],
-  "addressList": Array
+  "addressList": [
+    {
+      "addressId": String,
+      "userName": String,
+      "streetName": String,
+      "postCode": Number,
+      "tel": Number,
+      "isDefault":Boolean
+    }
+  ],
 })
 // 导出集合名Schema
 module.exports = mongoose.model('users', userSchame)

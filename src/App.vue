@@ -17,6 +17,7 @@ export default {
   padding: 0;
   list-style: none;
   /* 格式为空 */
+  text-decoration: none;
 }
 .el-checkbox__input.is-checked+.el-checkbox__label {
   color: #FF8000;
@@ -40,5 +41,8 @@ export default {
 }
 .el-checkbox__inner:hover{
   border-color:#DCDFE6;
+}
+.el-dialog__footer{
+  text-align: center;
 }
 </style>
