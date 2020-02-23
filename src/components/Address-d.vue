@@ -75,7 +75,7 @@ export default {
         console.log(response);
         let res=response.data;
         this.addressList=res.result;
-      })
+      });
     },
     expand(){
       if(this.limit==3){

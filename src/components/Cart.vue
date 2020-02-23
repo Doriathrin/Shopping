@@ -68,6 +68,7 @@ export default {
         if(res.status='0'){
           this.dialogFormVisible=false;
           this.init(); 
+          this.$store.commit('updateCartCount',-this.delItem.productNum);
         }
       })
     },
@@ -88,6 +89,13 @@ export default {
         checked:item.checked
       }).then((response)=>{
         let res=response.data;
+        let num=0;
+        if(flag=='add'){
+          num=1;
+        }else if(flag=='minu'){
+          num=-1;
+        }
+        this.$store.commit('updateCartCount',num);
       })
     },
     zong(){

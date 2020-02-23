@@ -7,9 +7,8 @@
           <li class='lwq-to-yo'>
             <el-button type="text" @click="dialogFormVisible = true" >Login</el-button>
             <span  @click="logOut">登出</span>
-            <el-dialog title="Login in" :visible.sync="dialogFormVisible">
+            <el-dialog title="Login in" :visible.sync="dialogFormVisible" >
               <el-form :model="form">
-                
                 <el-form-item label="活动名称" :label-width="formLabelWidth">
                   <el-input v-model="form.userName" autocomplete="off"></el-input>
                 </el-form-item>
@@ -19,11 +18,15 @@
               </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="login" >确 定</el-button>
+                <el-button type="primary" @click="login"  >确 定</el-button>
               </div>
             </el-dialog>
           </li>
-          <li><img src="/static/img/goodsList_spec_03.png" alt="" class='lwq-gwctu'></li>
+          <li>
+            <span v-text='nickName'></span>
+            <img src="/static/img/goodsList_spec_03.png" alt=""  class='lwq-gwctu'>
+            <span v-if='cartCount>0'>{{cartCount}}</span>
+          </li>
         </ul>
       </div>
       <div class='lwq-ye'>
@@ -45,7 +48,6 @@ export default {
     return {
         dialogTableVisible: false,
         dialogFormVisible: false,
-        nickName:false,
         form: {
           userName: '',
           userPwd: '',
@@ -60,6 +62,14 @@ export default {
         loginModalFlag:false
       };
   },
+  computed: {
+    nickName(){
+      return this.$store.state.nickName;
+    },
+    cartCount(){
+      return this.$store.state.cartCount;
+    }
+  },
   methods: {
       login(){
         if(this.form.userName==''||this.form.userPwd==''){
@@ -73,7 +83,9 @@ export default {
           if(res.status='0'){
             this.errorTip=false,
             this.dialogFormVisible=false
-            this.nickName=res.result.userName;
+            // this.nickName=res.result.userName;
+            this.$store.commit('updateUserInfo',res.result.userName);
+            this.getCartCount();
             this.form.userName='';
             this.form.userPwd='';
           }else{ 
@@ -85,9 +97,14 @@ export default {
         axios.post('/users/logout').then((response)=>{
           let res=response.data;
           if(res.status='0'){
-            this.form.userName='';
-            this.form.userPwd='';
+            this.$store.commit('updateUserInfo','');
           }
+        })
+      },
+      getCartCount(){
+        axios.get('/users/getCartCount').then((response)=>{
+          let res=response.data;
+          this.$store.commit('initCartCount',res.result)
         })
       }
   },
@@ -123,7 +140,7 @@ header {
   margin-top: 32px;
 }
 .lwq-to-yo{
-  margin-left: 1200px;
+  margin-left: 1100px;
   margin-top: 57.5px;
 }
 .lwq-ye{
